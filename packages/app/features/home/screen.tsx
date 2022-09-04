@@ -1,4 +1,4 @@
-import { Text, useSx, View, H1, P, Row, A } from 'dripsy'
+import { Text, useSx, View, H1, P, Row, A, ScrollView } from 'dripsy'
 import { TextLink } from 'solito/link'
 import { MotiLink } from 'solito/moti'
 import { useQuery } from '@tanstack/react-query'
@@ -11,8 +11,8 @@ export function HomeScreen() {
   )
 
   return (
-    <View
-      sx={{ flex: 1, alignItems: 'center', p: 16, width: ['100%', 600], marginX: 'auto' }}
+    <ScrollView
+      contentContainerSx={{ alignItems: 'center', p: 16, width: ['100%', 600], marginX: 'auto' }}
     >
       <H1 sx={{ fontWeight: '800' }}>Fake Store</H1>
 
@@ -45,6 +45,6 @@ export function HomeScreen() {
         </View>
       ))}
 
-    </View>
+    </ScrollView>
   )
 }
