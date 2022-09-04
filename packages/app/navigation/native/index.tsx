@@ -21,7 +21,7 @@ export function NativeNavigation() {
         name="home"
         component={HomeScreen}
         options={{
-          title: 'Home',
+          headerShown: false
         }}
       />
       <Stack.Screen
@@ -35,7 +35,7 @@ export function NativeNavigation() {
         name="product"
         component={ProductScreen}
         options={{
-          title: 'Product',
+          title: '',
         }}
       />
     </Stack.Navigator>
