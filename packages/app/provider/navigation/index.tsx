@@ -11,7 +11,10 @@ export function NavigationProvider({
     <NavigationContainer
       linking={useMemo(
         () => ({
-          prefixes: [Linking.createURL('/')],
+          prefixes: [
+            Linking.createURL('/'),
+            'https://universal-fake-store.vercel.app/'
+          ],
           config: {
             initialRouteName: 'home',
             screens: {
