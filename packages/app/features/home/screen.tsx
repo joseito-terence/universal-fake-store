@@ -1,8 +1,14 @@
-import { Text, useSx, View, H1, P, Row, A, ScrollView } from 'dripsy'
-import { TextLink } from 'solito/link'
+import { Text, useSx, View, H1, P, Row, A, ScrollView, FlatList } from 'dripsy'
+import { TextLink, Link } from 'solito/link'
 import { MotiLink } from 'solito/moti'
 import { useQuery } from '@tanstack/react-query'
-import productService from 'app/services/product.service'
+import productService, { ProductType } from 'app/services/product.service'
+import type { ListRenderItem } from 'react-native'
+import { Platform, Dimensions, Image } from 'react-native'
+
+function truncate(str: string, n: number) {
+  return str?.length > n ? str.substr(0, n - 1) + "..." : str;
+}
 
 export function HomeScreen() {
   const { data: products, isLoading } = useQuery(
@@ -11,40 +17,44 @@ export function HomeScreen() {
   )
 
   return (
-    <ScrollView
-      contentContainerSx={{ alignItems: 'center', p: 16, width: ['100%', 600], marginX: 'auto' }}
+    <View
+      sx={{ alignItems: 'center', width: ['100%', 700], marginX: 'auto' }}
     >
       <H1 sx={{ fontWeight: '800' }}>Fake Store</H1>
 
       {isLoading && <P>Loading...</P>}
-      {products?.map(product => (
-        <View key={product.id}>
-          <MotiLink
-            href={`/product/${product.id}`}
-            animate={({ hovered, pressed }) => {
-              'worklet'
 
-              return {
-                scale: pressed ? 0.95 : hovered ? 1.1 : 1,
-                rotateZ: pressed ? '0deg' : hovered ? '-3deg' : '0deg',
-              }
-            }}
-            transition={{
-              type: 'timing',
-              duration: 150,
-            }}
-          >
-            <H1
-              selectable={false}
-              sx={{ fontSize: 16, color: 'black', fontWeight: 'bold' }}
-            >
-              {product.title}
-            </H1>
-          </MotiLink>
-          <P>{product.description}</P>
-        </View>
-      ))}
+      <FlatList
+        data={products}
+        keyExtractor={item => item.id}
+        showsVerticalScrollIndicator={false}
+        numColumns={2}
+        renderItem={({ item: product }: Parameters<ListRenderItem<ProductType>>[0]) => (
+          <View sx={{
+            width: '50%',
+            borderColor: 'silver',
+            borderWidth: .5
+          }}>
+            <Link href={`/product/${product.id}`}>
+              <Image
+                source={{ uri: product?.image, width: 300, height: 300 }}
+                alt={product.title}
+                sx={{
+                  width: (Platform.OS === 'web') ? '100%' : Dimensions.get('window').width,
+                }}
+                resizeMode={(Platform.OS === 'web') ? 'contain' : 'cover'}
+              />
 
-    </ScrollView>
+              <H1
+                selectable={false}
+                sx={{ fontSize: 16, color: 'black', fontWeight: 'bold', maxWidth: '100%', p: 1 }}
+              >
+                {product.title}
+              </H1>
+            </Link>
+          </View>
+        )}
+      />
+    </View>
   )
 }

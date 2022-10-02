@@ -4,7 +4,7 @@ const fetchApi = (path: string) =>
   fetch(`${API_BASE_URL}${path}`)
     .then(res => res.json())
 
-type ProductType = {
+export type ProductType = {
   id: number,
   title: string,
   price: number,
