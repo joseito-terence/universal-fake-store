@@ -1,6 +1,14 @@
-import { NavigationContainer } from '@react-navigation/native'
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native'
 import * as Linking from 'expo-linking'
 import { useMemo } from 'react'
+
+const navTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: 'white',
+  },
+}
 
 export function NavigationProvider({
   children,
@@ -9,6 +17,7 @@ export function NavigationProvider({
 }) {
   return (
     <NavigationContainer
+      theme={navTheme}
       linking={useMemo(
         () => ({
           prefixes: [
