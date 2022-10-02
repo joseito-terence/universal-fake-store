@@ -1,10 +1,10 @@
-import { Text, useSx, View, H1, P, Row, A, ScrollView, FlatList } from 'dripsy'
+import { Text, useSx, View, H1, P, Row, A, ScrollView, FlatList, Image } from 'dripsy'
 import { TextLink, Link } from 'solito/link'
 import { MotiLink } from 'solito/moti'
 import { useQuery } from '@tanstack/react-query'
 import productService, { ProductType } from 'app/services/product.service'
 import type { ListRenderItem } from 'react-native'
-import { Platform, Dimensions, Image } from 'react-native'
+import { Platform, Dimensions } from 'react-native'
 
 function truncate(str: string, n: number) {
   return str?.length > n ? str.substr(0, n - 1) + "..." : str;
@@ -37,12 +37,16 @@ export function HomeScreen() {
           }}>
             <Link href={`/product/${product.id}`}>
               <Image
-                source={{ uri: product?.image, width: 300, height: 300 }}
+                source={{
+                  uri: product?.image,
+                  width: 300,
+                  height: 300 
+                }}
                 alt={product.title}
                 sx={{
-                  width: (Platform.OS === 'web') ? '100%' : Dimensions.get('window').width,
+                  width: (Platform.OS === 'web') ? '100%' : Dimensions.get('window').width / 2,
                 }}
-                resizeMode={(Platform.OS === 'web') ? 'contain' : 'cover'}
+                resizeMode={'contain'}
               />
 
               <H1
