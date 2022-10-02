@@ -1,10 +1,10 @@
-import { Text, useSx, View, H1, P, Row, A, ScrollView, FlatList, Image } from 'dripsy'
-import { TextLink, Link } from 'solito/link'
-import { MotiLink } from 'solito/moti'
+/* eslint-disable jsx-a11y/alt-text */
+import { View, H1, P, Image } from 'dripsy'
+import { Link } from 'solito/link'
 import { useQuery } from '@tanstack/react-query'
 import productService, { ProductType } from 'app/services/product.service'
-import type { ListRenderItem } from 'react-native'
-import { Platform, Dimensions } from 'react-native'
+import type { ListRenderItem, FlatListProps } from 'react-native'
+import { Platform, Dimensions, FlatList } from 'react-native'
 
 function truncate(str: string, n: number) {
   return str?.length > n ? str.substr(0, n - 1) + "..." : str;
@@ -24,12 +24,12 @@ export function HomeScreen() {
 
       {isLoading && <P>Loading...</P>}
 
-      <FlatList
+      <FlatList<ProductType>
         data={products}
-        keyExtractor={item => item.id}
+        keyExtractor={(item, index) => `${item.id}${index}`}
         showsVerticalScrollIndicator={false}
         numColumns={2}
-        renderItem={({ item: product }: Parameters<ListRenderItem<ProductType>>[0]) => (
+        renderItem={({ item: product }) => (
           <View sx={{
             width: '50%',
             borderColor: 'silver',
@@ -42,7 +42,7 @@ export function HomeScreen() {
                   width: 300,
                   height: 300 
                 }}
-                alt={product.title}
+                accessibilityLabel={product.title}
                 sx={{
                   width: (Platform.OS === 'web') ? '100%' : Dimensions.get('window').width / 2,
                 }}

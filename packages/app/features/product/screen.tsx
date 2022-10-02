@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import { Text, useSx, View, H1, P, Image, ScrollView } from 'dripsy'
 import { useQuery } from '@tanstack/react-query'
 import productService from 'app/services/product.service'
@@ -27,7 +28,6 @@ export function ProductScreen() {
           width: 300,
           height: 300
         }}
-        alt={product?.title}
         sx={{
           width: (Platform.OS === 'web') ? '100%' : Dimensions.get('window').width / 2,
         }}
