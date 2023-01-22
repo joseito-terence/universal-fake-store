@@ -42,11 +42,13 @@ export function HomeScreen() {
               <SolitoImage
                 src={product?.image}
                 accessibilityLabel={product.title}
+                width={300}
+                height={300}
                 style={{
                   width: (Platform.OS === 'web') ? '100%' : Dimensions.get('window').width / 2,
-                  height: 300
                 }}
                 resizeMode={'contain'}
+                unoptimized
               />
 
               <H1
