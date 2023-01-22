@@ -6,6 +6,7 @@ import productService, { ProductType } from 'app/services/product.service'
 import type { ListRenderItem, FlatListProps } from 'react-native'
 import { Platform, Dimensions, FlatList } from 'react-native'
 import FastImage from 'react-native-fast-image'
+import { SolitoImage } from 'solito/image'
 
 function truncate(str: string, n: number) {
   return str?.length > n ? str.substr(0, n - 1) + "..." : str;
@@ -38,10 +39,8 @@ export function HomeScreen() {
           }}>
             <Link href={`/product/${product.id}`}>
 
-              <FastImage
-                source={{
-                  uri: product?.image,
-                }}
+              <SolitoImage
+                src={product?.image}
                 accessibilityLabel={product.title}
                 style={{
                   width: (Platform.OS === 'web') ? '100%' : Dimensions.get('window').width / 2,
