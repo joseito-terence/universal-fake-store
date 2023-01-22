@@ -31,6 +31,7 @@ export function ProductScreen() {
           accessibilityLabel={product?.title}
           style={{
             width: (Platform.OS === 'web') ? '100%' : Dimensions.get('window').width / 2,
+            height: 300
           }}
           resizeMode={'contain'}
         />

@@ -4,7 +4,7 @@ import { Link } from 'solito/link'
 import { useQuery } from '@tanstack/react-query'
 import productService, { ProductType } from 'app/services/product.service'
 import { Platform, Dimensions, FlatList } from 'react-native'
-import Image from '../Image/index.web'
+import Image from '../Image'
 
 export function HomeScreen() {
   const { data: products, isLoading } = useQuery(
@@ -32,8 +32,6 @@ export function HomeScreen() {
             borderWidth: .5
           }}>
             <Link href={`/product/${product.id}`}>
-              
-             
               <Image
                 source={{ uri: product?.image }}
                 accessibilityLabel={product.title}
