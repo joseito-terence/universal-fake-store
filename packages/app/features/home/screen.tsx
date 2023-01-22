@@ -1,16 +1,10 @@
 /* eslint-disable jsx-a11y/alt-text */
-import { View, H1, P, Image } from 'dripsy'
+import { View, H1, P } from 'dripsy'
 import { Link } from 'solito/link'
 import { useQuery } from '@tanstack/react-query'
 import productService, { ProductType } from 'app/services/product.service'
-import type { ListRenderItem, FlatListProps } from 'react-native'
 import { Platform, Dimensions, FlatList } from 'react-native'
-import FastImage from 'react-native-fast-image'
-import { SolitoImage } from 'solito/image'
-
-function truncate(str: string, n: number) {
-  return str?.length > n ? str.substr(0, n - 1) + "..." : str;
-}
+import Image from '../Image/index.web'
 
 export function HomeScreen() {
   const { data: products, isLoading } = useQuery(
@@ -38,17 +32,18 @@ export function HomeScreen() {
             borderWidth: .5
           }}>
             <Link href={`/product/${product.id}`}>
-
-              <SolitoImage
-                src={product?.image}
+              
+             
+              <Image
+                source={{ uri: product?.image }}
                 accessibilityLabel={product.title}
                 width={300}
                 height={300}
                 style={{
                   width: (Platform.OS === 'web') ? '100%' : Dimensions.get('window').width / 2,
+                  height: 300
                 }}
                 resizeMode={'contain'}
-                unoptimized
               />
 
               <H1
