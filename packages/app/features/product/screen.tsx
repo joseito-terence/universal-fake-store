@@ -3,7 +3,8 @@ import { Text, useSx, View, H1, P, Image, ScrollView } from 'dripsy'
 import { useQuery } from '@tanstack/react-query'
 import productService from 'app/services/product.service'
 import { createParam } from 'solito'
-import { Platform, Dimensions,  } from 'react-native'
+import { Platform, Dimensions, } from 'react-native'
+import FastImage from 'react-native-fast-image'
 
 const { useParam } = createParam()
 
@@ -16,20 +17,20 @@ export function ProductScreen() {
   )
 
   if (isLoading)
-    return <P>Loading...</P>
+    return <P sx={{ textAlign: 'center' }}>Loading...</P>
 
   return (
     <ScrollView
-      contentContainerSx={{alignItems: 'center', p: 16, width: ['100%', 600], marginX: 'auto', pt: 0 }}
+      contentContainerSx={{ alignItems: 'center', p: 16, width: ['100%', 600], marginX: 'auto', pt: 0 }}
     >
-      <Image
+      <FastImage
         source={{
           uri: product?.image,
-          width: 300,
-          height: 300
         }}
-        sx={{
+        accessibilityLabel={product?.title}
+        style={{
           width: (Platform.OS === 'web') ? '100%' : Dimensions.get('window').width / 2,
+          height: 300
         }}
         resizeMode={'contain'}
       />

@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query'
 import productService, { ProductType } from 'app/services/product.service'
 import type { ListRenderItem, FlatListProps } from 'react-native'
 import { Platform, Dimensions, FlatList } from 'react-native'
+import FastImage from 'react-native-fast-image'
 
 function truncate(str: string, n: number) {
   return str?.length > n ? str.substr(0, n - 1) + "..." : str;
@@ -36,15 +37,15 @@ export function HomeScreen() {
             borderWidth: .5
           }}>
             <Link href={`/product/${product.id}`}>
-              <Image
+
+              <FastImage
                 source={{
                   uri: product?.image,
-                  width: 300,
-                  height: 300 
                 }}
                 accessibilityLabel={product.title}
-                sx={{
+                style={{
                   width: (Platform.OS === 'web') ? '100%' : Dimensions.get('window').width / 2,
+                  height: 300
                 }}
                 resizeMode={'contain'}
               />
